@@ -43,12 +43,11 @@ public:
         }
     };
 
-    void AddStop(std::string_view stop_name, const geo::Coordinates coordinates);
-    void AddRoute(std::string_view bus_number, const std::vector<const Stop*> stops, bool is_circle);
+    void AddStop(const std::string_view stop_name, const geo::Coordinates& coordinates);
+    void AddRoute(std::string_view bus_number, const std::vector<const Stop*>& stops, bool is_circle);
     const Bus* FindRoute(std::string_view bus_number) const;
     const Stop* FindStop(std::string_view stop_name) const;
-    std::optional<BusStat> GetBusStat(const std::string_view& bus_number) const;
-    size_t UniqueStopsCount(std::string_view bus_number) const;
+    std::optional<BusStat> GetBusStat(const std::string_view bus_number) const;
     const std::set<std::string> GetBusesByStop(std::string_view stop_name) const;
     void SetDistance(const Stop* from, const Stop* to, const int distance);
     int GetDistance(const Stop* from, const Stop* to) const;
@@ -58,6 +57,7 @@ private:
     std::deque<Stop> all_stops_;
     std::unordered_map<std::string_view, const Bus*> busname_to_bus_;
     std::unordered_map<std::string_view, const Stop*> stopname_to_stop_;
+    size_t UniqueStopsCount(std::string_view bus_number) const;
     std::unordered_map<std::pair<const Stop*, const Stop*>, int, StopDistancesHasher> stop_distances_;
 };
 
