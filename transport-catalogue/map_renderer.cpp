@@ -12,7 +12,7 @@ bool IsZero(double value) {
     return std::abs(value) < EPSILON;
 }
 
-std::vector<svg::Polyline> MapRenderer::GetRouteLines(const std::map<std::string_view, const transport::Bus*>& buses, const SphereProjector& sp) const {
+std::vector<svg::Polyline> MapRenderer::VisualizeRouteLines(const std::map<std::string_view, const transport::Bus*>& buses, const SphereProjector& sp) const {
     std::vector<svg::Polyline> result;
     size_t color_num = 0;
     for (const auto& [bus_number, bus] : buses) {
@@ -142,7 +142,7 @@ svg::Document MapRenderer::GetSVG(const std::map<std::string_view, const transpo
     }
     SphereProjector sp(route_stops_coord.begin(), route_stops_coord.end(), render_settings_.width, render_settings_.height, render_settings_.padding);
     
-    for (const auto& line : GetRouteLines(buses, sp)) result.Add(line);
+    for (const auto& line : VisualizeRouteLines(buses, sp)) result.Add(line);
     for (const auto& text : GetBusLabel(buses, sp)) result.Add(text);
     for (const auto& circle : GetStopsSymbols(all_stops, sp)) result.Add(circle);
     for (const auto& text : GetStopsLabels(all_stops, sp)) result.Add(text);

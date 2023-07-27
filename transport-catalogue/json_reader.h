@@ -25,6 +25,8 @@ public:
     const json::Node PrintRoute(const json::Dict& request_map, RequestHandler& rh) const;
     const json::Node PrintStop(const json::Dict& request_map, RequestHandler& rh) const;
     const json::Node PrintMap(const json::Dict& request_map, RequestHandler& rh) const;
+    static svg::Color ReadColor(const json::Node& color_node);
+
 
 private:
     json::Document input_;

@@ -34,6 +34,7 @@ public:
     int GetDistance(const Stop* from, const Stop* to) const;
     const std::map<std::string_view, const Bus*> GetSortedAllBuses() const;
     size_t UniqueStopsCount(std::string_view bus_number) const;
+    std::optional<transport::BusStat> GetBusStat(const std::string_view bus_number) const;
 
 private:
     std::deque<Bus> all_buses_;
