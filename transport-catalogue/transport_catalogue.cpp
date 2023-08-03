@@ -2,12 +2,12 @@
 
 namespace transport {
 
-void Catalogue::AddStop(std::string_view stop_name, const geo::Coordinates& coordinates) {
+void Catalogue::AddStop(std::string_view stop_name, const geo::Coordinates coordinates) {
     all_stops_.push_back({ std::string(stop_name), coordinates, {} });
     stopname_to_stop_[all_stops_.back().name] = &all_stops_.back();
 }
 
-void Catalogue::AddRoute(std::string_view bus_number, const std::vector<const Stop*>& stops, bool is_circle) {
+void Catalogue::AddRoute(std::string_view bus_number, const std::vector<const Stop*> stops, bool is_circle) {
     all_buses_.push_back({ std::string(bus_number), stops, is_circle });
     busname_to_bus_[all_buses_.back().number] = &all_buses_.back();
     for (const auto& route_stop : stops) {
