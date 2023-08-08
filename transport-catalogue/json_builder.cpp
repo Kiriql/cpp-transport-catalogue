@@ -110,14 +110,7 @@ Node Builder::Build() {
 }
 
 Node Builder::GetNode(Node::Value value) {
-    if (std::holds_alternative<int>(value)) return Node(std::get<int>(value));
-    if (std::holds_alternative<double>(value)) return Node(std::get<double>(value));
-    if (std::holds_alternative<std::string>(value)) return Node(std::get<std::string>(value));
-    if (std::holds_alternative<std::nullptr_t>(value)) return Node(std::get<std::nullptr_t>(value));
-    if (std::holds_alternative<bool>(value)) return Node(std::get<bool>(value));
-    if (std::holds_alternative<Dict>(value)) return Node(std::get<Dict>(value));
-    if (std::holds_alternative<Array>(value)) return Node(std::get<Array>(value));
-    return {};
+    return Node(std::move(value));
 }
 
 Builder::DictItemContext::DictItemContext(Builder& builder)
