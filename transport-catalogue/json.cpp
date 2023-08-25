@@ -136,7 +136,7 @@ Node LoadNull(std::istream& input) {
 Node LoadNumber(std::istream& input) {
     std::string parsed_num;
 
-    // Считывает в parsed_num очередной символ из input
+    // Ñ÷èòûâàåò â parsed_num î÷åðåäíîé ñèìâîë èç input
     auto read_char = [&parsed_num, &input] {
         parsed_num += static_cast<char>(input.get());
         if (!input) {
@@ -144,7 +144,7 @@ Node LoadNumber(std::istream& input) {
         }
     };
 
-    // Считывает одну или более цифр в parsed_num из input
+    // Ñ÷èòûâàåò îäíó èëè áîëåå öèôð â parsed_num èç input
     auto read_digits = [&input, read_char] {
         if (!std::isdigit(input.peek())) {
             throw ParsingError("A digit is expected"s);
@@ -157,24 +157,24 @@ Node LoadNumber(std::istream& input) {
     if (input.peek() == '-') {
         read_char();
     }
-    // Парсим целую часть числа
+    // Ïàðñèì öåëóþ ÷àñòü ÷èñëà
     if (input.peek() == '0') {
         read_char();
-        // После 0 в JSON не могут идти другие цифры
+        // Ïîñëå 0 â JSON íå ìîãóò èäòè äðóãèå öèôðû
     }
     else {
         read_digits();
     }
 
     bool is_int = true;
-    // Парсим дробную часть числа
+    // Ïàðñèì äðîáíóþ ÷àñòü ÷èñëà
     if (input.peek() == '.') {
         read_char();
         read_digits();
         is_int = false;
     }
 
-    // Парсим экспоненциальную часть числа
+    // Ïàðñèì ýêñïîíåíöèàëüíóþ ÷àñòü ÷èñëà
     if (int ch = input.peek(); ch == 'e' || ch == 'E') {
         read_char();
         if (ch = input.peek(); ch == '+' || ch == '-') {
@@ -186,13 +186,13 @@ Node LoadNumber(std::istream& input) {
 
     try {
         if (is_int) {
-            // Сначала пробуем преобразовать строку в int
+            // Ñíà÷àëà ïðîáóåì ïðåîáðàçîâàòü ñòðîêó â int
             try {
                 return std::stoi(parsed_num);
             }
             catch (...) {
-                // В случае неудачи, например, при переполнении
-                // код ниже попробует преобразовать строку в double
+                // Â ñëó÷àå íåóäà÷è, íàïðèìåð, ïðè ïåðåïîëíåíèè
+                // êîä íèæå ïîïðîáóåò ïðåîáðàçîâàòü ñòðîêó â double
             }
         }
         return std::stod(parsed_num);
@@ -215,12 +215,12 @@ Node LoadNode(std::istream& input) {
     case '"':
         return LoadString(input);
     case 't':
-        // Атрибут [[fallthrough]] (провалиться) ничего не делает, и является
-        // подсказкой компилятору и человеку, что здесь программист явно задумывал
-        // разрешить переход к инструкции следующей ветки case, а не случайно забыл
-        // написать break, return или throw.
-        // В данном случае, встретив t или f, переходим к попытке парсинга
-        // литералов true либо false
+        // Àòðèáóò [[fallthrough]] (ïðîâàëèòüñÿ) íè÷åãî íå äåëàåò, è ÿâëÿåòñÿ
+        // ïîäñêàçêîé êîìïèëÿòîðó è ÷åëîâåêó, ÷òî çäåñü ïðîãðàììèñò ÿâíî çàäóìûâàë
+        // ðàçðåøèòü ïåðåõîä ê èíñòðóêöèè ñëåäóþùåé âåòêè case, à íå ñëó÷àéíî çàáûë
+        // íàïèñàòü break, return èëè throw.
+        // Â äàííîì ñëó÷àå, âñòðåòèâ t èëè f, ïåðåõîäèì ê ïîïûòêå ïàðñèíãà
+        // ëèòåðàëîâ true ëèáî false
         [[fallthrough]];
     case 'f':
         input.putback(c);
@@ -268,7 +268,7 @@ void PrintString(const std::string& value, std::ostream& out) {
             out << "\\n"sv;
             break;
         case '"':
-            // Символы " и \ выводятся как \" или \\, соответственно
+            // Ñèìâîëû " è \ âûâîäÿòñÿ êàê \" èëè \\, ñîîòâåòñòâåííî
             [[fallthrough]];
         case '\\':
             out.put('\\');
@@ -291,9 +291,9 @@ void PrintValue<std::nullptr_t>(const std::nullptr_t&, const PrintContext& ctx) 
     ctx.out << "null"sv;
 }
 
-// В специализаци шаблона PrintValue для типа bool параметр value передаётся
-// по константной ссылке, как и в основном шаблоне.
-// В качестве альтернативы можно использовать перегрузку:
+// Â ñïåöèàëèçàöè øàáëîíà PrintValue äëÿ òèïà bool ïàðàìåòð value ïåðåäà¸òñÿ
+// ïî êîíñòàíòíîé ññûëêå, êàê è â îñíîâíîì øàáëîíå.
+// Â êà÷åñòâå àëüòåðíàòèâû ìîæíî èñïîëüçîâàòü ïåðåãðóçêó:
 // void PrintValue(bool value, const PrintContext& ctx);
 template <>
 void PrintValue<bool>(const bool& value, const PrintContext& ctx) {
@@ -362,4 +362,4 @@ void Print(const Document& doc, std::ostream& output) {
     PrintNode(doc.GetRoot(), PrintContext{ output });
 }
 
-}  // namespace json
+} // namespace json

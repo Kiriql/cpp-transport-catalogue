@@ -23,9 +23,6 @@ public:
     using variant::variant;
     using Value = variant;
 
-    Node(const Value& value) : value_(value) {}
-    Node(Value&& value) : value_(std::move(value)) {}
-
     bool IsInt() const {
         return std::holds_alternative<int>(*this);
     }
@@ -114,8 +111,6 @@ public:
     Value& GetValue() {
         return *this;
     }
-private:
-    Value value_;
 };
 
 inline bool operator!=(const Node& lhs, const Node& rhs) {
@@ -148,4 +143,4 @@ Document Load(std::istream& input);
 
 void Print(const Document& doc, std::ostream& output);
 
-}  // namespace json
+} // namespace json

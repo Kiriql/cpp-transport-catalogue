@@ -11,7 +11,7 @@ public:
     class DictItemContext;
     class DictKeyContext;
     class ArrayItemContext;
-    
+
     Builder();
     DictKeyContext Key(std::string key);
     Builder& Value(Node::Value value);
@@ -55,11 +55,11 @@ private:
 class Builder::DictKeyContext {
 public:
     DictKeyContext(Builder& builder);
-    
+
     DictItemContext Value(Node::Value value);
     ArrayItemContext StartArray();
     DictItemContext StartDict();
-    
+
 private:
     Builder& builder_;
 };
