@@ -21,9 +21,11 @@ public:
 		BuildGraph(catalogue);
 	}
 
-	const graph::DirectedWeightedGraph<double>& BuildGraph(const Catalogue& catalogue);
+	void BuildGraph(const Catalogue& catalogue);
 	const std::optional<graph::Router<double>::RouteInfo> FindRoute(const std::string_view stop_from, const std::string_view stop_to) const;
 	const graph::DirectedWeightedGraph<double>& GetGraph() const;
+	void AddStopEdges(const Catalogue& catalogue, graph::DirectedWeightedGraph<double>& graph, std::map<std::string, graph::VertexId>& stop_ids, graph::VertexId& vertex_id);
+	void AddBusEdges(const Catalogue& catalogue, graph::DirectedWeightedGraph<double>& graph, const std::map<std::string, graph::VertexId>& stop_ids);
 
 private:
 	int bus_wait_time_ = 0;
