@@ -22,7 +22,7 @@ const std::optional<graph::Router<double>::RouteInfo> RequestHandler::GetOptimal
 
 const graph::DirectedWeightedGraph<double>& RequestHandler::GetRouterGraph() const {
     return router_.GetGraph();
-}
+} // Если я предоставляю доступ ко всему графу, то решение не проходит тесты. И я не понимаю для чего вообще нужно копировать граф, так же быстрее по идее
 
 svg::Document RequestHandler::RenderMap() const {
     return renderer_.GetSVG(catalogue_.GetSortedAllBuses());
