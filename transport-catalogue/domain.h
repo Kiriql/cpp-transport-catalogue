@@ -28,4 +28,4 @@ struct BusStat {
     double curvature;
 };
 
-} // namespace transport
+}

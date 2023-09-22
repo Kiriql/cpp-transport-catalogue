@@ -98,6 +98,8 @@ struct RenderSettings {
 
 class MapRenderer {
 public:
+    MapRenderer() {}
+
     MapRenderer(const RenderSettings& render_settings)
         : render_settings_(render_settings)
     {}
@@ -109,8 +111,10 @@ public:
 
     svg::Document GetSVG(const std::map<std::string_view, const transport::Bus*>& buses) const;
 
+    const RenderSettings GetRenderSettings() const;
+
 private:
     const RenderSettings render_settings_;
 };
 
-} // namespace renderer
+}

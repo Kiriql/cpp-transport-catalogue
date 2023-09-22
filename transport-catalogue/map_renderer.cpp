@@ -144,4 +144,8 @@ svg::Document MapRenderer::GetSVG(const std::map<std::string_view, const transpo
     return result;
 }
 
-} // namespace renderer
+const RenderSettings MapRenderer::GetRenderSettings() const {
+    return render_settings_;
+}
+
+}
