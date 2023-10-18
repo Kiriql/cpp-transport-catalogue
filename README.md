@@ -1,6 +1,6 @@
 # TransportCatalogue
 
-## Educational project
+## *Educational project*
 
 - Accepts JSON format data as input and produces a response in the form of an SVG file that visualizes stops and routes.
 - Finds the shortest route between stops.
